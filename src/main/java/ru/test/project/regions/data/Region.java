@@ -5,22 +5,21 @@ import lombok.NoArgsConstructor;
 import ru.test.project.regions.dto.RegionTransferObject;
 
 import javax.validation.constraints.*;
+import java.io.Serializable;
+
 
 @Data
 @NoArgsConstructor
-public class Region {
-    @NotNull
-    @Positive
-    private long id;
+public class Region implements Serializable {
+    @Positive(message = "Id must be positive")
+    private Long id;
 
-    @NotEmpty
-    @NotBlank
-    @Max(100)
+    @NotBlank(message = "Name must be not blank")
+    @Size(max = 100, message = "Name must be not grater then 100 symbols")
     private String name;
 
-    @NotEmpty
-    @NotBlank
-    @Size(min = 3, max = 3)
+    @NotBlank(message = "Reduction must be not blank")
+    @Size(min = 3, max = 3, message = "Reduction must be size 3")
     private String reduction;
 
     public Region(RegionTransferObject regionTransferObject) {

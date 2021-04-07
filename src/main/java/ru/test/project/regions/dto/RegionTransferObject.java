@@ -2,20 +2,16 @@ package ru.test.project.regions.dto;
 
 import lombok.Data;
 
-import javax.validation.constraints.Max;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 @Data
 public class RegionTransferObject {
-    @NotEmpty
-    @NotBlank
-    @Max(100)
+    @NotBlank(message = "Name must be not blank")
+    @Size(max = 100, message = "Name must be not grater then 100 symbols")
     String name;
 
-    @NotEmpty
-    @NotBlank
-    @Size(min = 3, max = 3)
+    @NotBlank(message = "Reduction must be not blank")
+    @Size(min = 3, max = 3, message = "Reduction must be size 3")
     String reduction;
 }
