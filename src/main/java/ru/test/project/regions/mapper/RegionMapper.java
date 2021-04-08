@@ -1,7 +1,6 @@
 package ru.test.project.regions.mapper;
 
 import org.apache.ibatis.annotations.*;
-import org.springframework.dao.DuplicateKeyException;
 import ru.test.project.regions.data.Region;
 
 import java.util.List;

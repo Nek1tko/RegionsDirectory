@@ -7,9 +7,13 @@ import java.util.List;
 
 public interface RegionService {
     List<Region> getRegions();
+
     Region getRegion(Long id);
+
     Region addRegion(RegionTransferObject regionTransferObject);
+
     void deleteRegionById(Long id);
+
     Region updateRegion(Region region);
 
 }

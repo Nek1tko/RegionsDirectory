@@ -10,7 +10,6 @@ import ru.test.project.regions.dto.RegionTransferObject;
 import ru.test.project.regions.service.RegionService;
 import ru.test.project.regions.service.RegionServiceImpl;
 
-
 import javax.validation.Valid;
 import java.util.List;
 
@@ -74,4 +73,4 @@ public class RegionController {
         regionService.deleteRegionById(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
- }
+}
