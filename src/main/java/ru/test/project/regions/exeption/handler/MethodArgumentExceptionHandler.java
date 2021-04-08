@@ -1,5 +1,6 @@
 package ru.test.project.regions.exeption.handler;
 
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,7 @@ import ru.test.project.regions.exeption.InvalidIdException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @ControllerAdvice
 public class MethodArgumentExceptionHandler extends ResponseEntityExceptionHandler {
@@ -26,12 +28,22 @@ public class MethodArgumentExceptionHandler extends ResponseEntityExceptionHandl
         for (FieldError error : exception.getBindingResult().getFieldErrors()) {
             errors.add(error.getField() + ": " + error.getDefaultMessage());
         }
-        return new ResponseEntity<>(errors, HttpStatus.UNPROCESSABLE_ENTITY);
+        return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(value = InvalidIdException.class)
     protected ResponseEntity<Object> handleInvalidId(InvalidIdException exception) {
+        return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(value = NoSuchElementException.class)
+    protected ResponseEntity<Object> handleNoSuchElement(NoSuchElementException exception) {
         return new ResponseEntity<>(exception.getMessage(), HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(value = DuplicateKeyException.class)
+    protected ResponseEntity<Object> handleDuplicateKey() {
+        return new ResponseEntity<>("Duplicate name or reduction", HttpStatus.CONFLICT);
     }
 
 

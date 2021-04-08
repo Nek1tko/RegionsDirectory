@@ -5,12 +5,11 @@ import lombok.NoArgsConstructor;
 import ru.test.project.regions.dto.RegionTransferObject;
 
 import javax.validation.constraints.*;
-import java.io.Serializable;
 
 
 @Data
 @NoArgsConstructor
-public class Region implements Serializable {
+public class Region {
     @Positive(message = "Id must be positive")
     private Long id;
 

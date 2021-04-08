@@ -3,7 +3,6 @@ package ru.test.project.regions.service;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Service;
 import ru.test.project.regions.data.Region;
 import ru.test.project.regions.dto.RegionTransferObject;
@@ -11,10 +10,11 @@ import ru.test.project.regions.exeption.InvalidIdException;
 import ru.test.project.regions.mapper.RegionMapper;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class RegionServiceImpl implements RegionService {
-    private RegionMapper regionMapper;
+    private final RegionMapper regionMapper;
 
     public RegionServiceImpl(RegionMapper regionMapper) {
         this.regionMapper = regionMapper;
@@ -36,7 +36,7 @@ public class RegionServiceImpl implements RegionService {
         }
 
         return regionMapper.findById(id).orElseThrow(() ->
-                new InvalidIdException("Data base has no element with such id")
+                new NoSuchElementException("Data base has no element with such id")
         );
     }
 
@@ -59,7 +59,7 @@ public class RegionServiceImpl implements RegionService {
         }
 
         if (regionMapper.delete(id) <= 0) {
-            throw new InvalidIdException("Data base has no element with such id");
+            throw new NoSuchElementException("Data base has no element with such id");
         }
     }
 
@@ -67,7 +67,7 @@ public class RegionServiceImpl implements RegionService {
     @CachePut(value = "regions", key = "#result.id")
     public Region updateRegion(Region region) {
         if (regionMapper.update(region) <= 0) {
-            throw new InvalidIdException("Data base has no element with such id");
+            throw new NoSuchElementException("Data base has no element with such id");
         }
 
         return region;
