@@ -22,7 +22,6 @@ public class CommonAppConfig {
         return new EmbeddedDatabaseBuilder()
                 .setType(EmbeddedDatabaseType.H2)
                 .addScript("sql/create_database.sql")
-                .addScript("sql/insert_sample_data.sql")
                 .build();
     }
 
